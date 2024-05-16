@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Entitis;
+using RestaurantReservation.Db.Entities;
 
 namespace RestaurantReservation.Db;
 
@@ -25,5 +25,6 @@ public class RestaurantReservationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Customer>(ent => { ent.HasIndex(e => e.Email).IsUnique(); });
     }
 }
