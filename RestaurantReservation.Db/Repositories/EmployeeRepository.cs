@@ -1,4 +1,6 @@
-﻿using RestaurantReservation.Db.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.Enums;
 
 namespace RestaurantReservation.Db.Repositories;
 
@@ -47,5 +49,18 @@ public class EmployeeRepository
     public async Task<Employee?> GetEmployee(int employeeId)
     {
         return await _context.Employees.FindAsync(employeeId);
+    }
+
+    public async Task<List<Employee>> ListManager()
+    {
+        return await _context.Employees.Where(e => e.Position == Position.Manager).ToListAsync();
+    }
+
+    public async Task<double> CalculateAverageOrderAmount(int employeeId)
+    {
+        var employeeOrdersCount = await _context.Orders.CountAsync(o => o.EmployeeID == employeeId);
+        var totalOrdersCount = await _context.Orders.CountAsync();
+
+        return (double)employeeOrdersCount / totalOrdersCount;
     }
 }
