@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using RestaurantReservation.Db.Enums;
 
-namespace RestaurantReservation.Db.Entitis;
+namespace RestaurantReservation.Db.Entities;
 
 public class Employee
 {
@@ -17,10 +18,7 @@ public class Employee
     [MaxLength(40)]
     public string LastName { get; set; }
 
-    [Required]
-    [MinLength(3)]
-    [MaxLength(30)]
-    public string Position { get; set; }
+    [Required] public Position Position { get; set; }
 
     public List<Order> Orders { get; set; }
 }
