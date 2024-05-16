@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.Enums;
 
 namespace RestaurantReservation.Db;
 
@@ -25,6 +27,11 @@ public class RestaurantReservationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        var positionConverter = new EnumToStringConverter<Position>();
+
         modelBuilder.Entity<Customer>(ent => { ent.HasIndex(e => e.Email).IsUnique(); });
+        modelBuilder.Entity<Employee>().Property(e => e.Position).HasConversion(positionConverter);
+
+        base.OnModelCreating(modelBuilder);
     }
 }
