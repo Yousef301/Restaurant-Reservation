@@ -22,7 +22,7 @@ namespace RestaurantReservation.Db.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Customer", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Customer", b =>
                 {
                     b.Property<int>("CustomerID")
                         .ValueGeneratedOnAdd()
@@ -32,7 +32,7 @@ namespace RestaurantReservation.Db.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -50,10 +50,13 @@ namespace RestaurantReservation.Db.Migrations
 
                     b.HasKey("CustomerID");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Employee", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Employee", b =>
                 {
                     b.Property<int>("EmployeeID")
                         .ValueGeneratedOnAdd()
@@ -86,7 +89,7 @@ namespace RestaurantReservation.Db.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.MenuItem", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.MenuItem", b =>
                 {
                     b.Property<int>("ItemID")
                         .ValueGeneratedOnAdd()
@@ -117,7 +120,7 @@ namespace RestaurantReservation.Db.Migrations
                     b.ToTable("MenuItems");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Order", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Order", b =>
                 {
                     b.Property<int>("OrderID")
                         .ValueGeneratedOnAdd()
@@ -127,6 +130,9 @@ namespace RestaurantReservation.Db.Migrations
 
                     b.Property<int>("EmployeeID")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ReservationID")
                         .HasColumnType("int");
@@ -143,7 +149,7 @@ namespace RestaurantReservation.Db.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.OrderItem", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.OrderItem", b =>
                 {
                     b.Property<int>("OrderItemID")
                         .ValueGeneratedOnAdd()
@@ -169,7 +175,7 @@ namespace RestaurantReservation.Db.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Reservation", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Reservation", b =>
                 {
                     b.Property<int>("ReservationID")
                         .ValueGeneratedOnAdd()
@@ -203,7 +209,7 @@ namespace RestaurantReservation.Db.Migrations
                     b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Restaurant", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Restaurant", b =>
                 {
                     b.Property<int>("RestaurantID")
                         .ValueGeneratedOnAdd()
@@ -235,7 +241,7 @@ namespace RestaurantReservation.Db.Migrations
                     b.ToTable("Restaurants");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Table", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Table", b =>
                 {
                     b.Property<int>("TableID")
                         .ValueGeneratedOnAdd()
@@ -256,48 +262,48 @@ namespace RestaurantReservation.Db.Migrations
                     b.ToTable("Tables");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Employee", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Employee", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.Entitis.Restaurant", null)
+                    b.HasOne("RestaurantReservation.Db.Entities.Restaurant", null)
                         .WithMany("Employees")
                         .HasForeignKey("RestaurantID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.MenuItem", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.MenuItem", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.Entitis.Restaurant", null)
+                    b.HasOne("RestaurantReservation.Db.Entities.Restaurant", null)
                         .WithMany("MenuItems")
                         .HasForeignKey("RestaurantID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Order", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Order", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.Entitis.Employee", null)
+                    b.HasOne("RestaurantReservation.Db.Entities.Employee", null)
                         .WithMany("Orders")
                         .HasForeignKey("EmployeeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RestaurantReservation.Db.Entitis.Reservation", null)
+                    b.HasOne("RestaurantReservation.Db.Entities.Reservation", null)
                         .WithMany("Orders")
                         .HasForeignKey("ReservationID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.OrderItem", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.OrderItem", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.Entitis.MenuItem", "Item")
+                    b.HasOne("RestaurantReservation.Db.Entities.MenuItem", "Item")
                         .WithMany("OrderItems")
                         .HasForeignKey("ItemID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RestaurantReservation.Db.Entitis.Order", "Order")
+                    b.HasOne("RestaurantReservation.Db.Entities.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -308,62 +314,62 @@ namespace RestaurantReservation.Db.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Reservation", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Reservation", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.Entitis.Customer", null)
+                    b.HasOne("RestaurantReservation.Db.Entities.Customer", null)
                         .WithMany("Reservations")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RestaurantReservation.Db.Entitis.Restaurant", null)
+                    b.HasOne("RestaurantReservation.Db.Entities.Restaurant", null)
                         .WithMany("Reservations")
                         .HasForeignKey("RestaurantID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RestaurantReservation.Db.Entitis.Table", null)
+                    b.HasOne("RestaurantReservation.Db.Entities.Table", null)
                         .WithMany("Reservations")
                         .HasForeignKey("TableID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Table", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Table", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.Entitis.Restaurant", null)
+                    b.HasOne("RestaurantReservation.Db.Entities.Restaurant", null)
                         .WithMany("Tables")
                         .HasForeignKey("RestaurantID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Customer", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Customer", b =>
                 {
                     b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Employee", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Employee", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.MenuItem", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.MenuItem", b =>
                 {
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Order", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Order", b =>
                 {
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Reservation", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Reservation", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Restaurant", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Restaurant", b =>
                 {
                     b.Navigation("Employees");
 
@@ -374,7 +380,7 @@ namespace RestaurantReservation.Db.Migrations
                     b.Navigation("Tables");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.Entitis.Table", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.Entities.Table", b =>
                 {
                     b.Navigation("Reservations");
                 });
