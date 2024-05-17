@@ -59,5 +59,10 @@ namespace RestaurantReservation.Db.Repositories
         {
             return await _context.Customers.AnyAsync(c => c.Email == email);
         }
+
+        public async Task<List<Customer>> GetCustomersByPartySize(int partySize)
+        {
+            return _context.Customers.FromSqlInterpolated($"GetCustomersByPartySize {partySize}").ToList();
+        }
     }
 }
