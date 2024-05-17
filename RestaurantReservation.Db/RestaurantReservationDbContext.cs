@@ -8,7 +8,7 @@ namespace RestaurantReservation.Db;
 
 public class RestaurantReservationDbContext : DbContext
 {
-    // private readonly string _connectionString;
+    private readonly string _connectionString;
 
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Employee> Employees { get; set; }
@@ -22,10 +22,15 @@ public class RestaurantReservationDbContext : DbContext
     public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
 
 
+    public RestaurantReservationDbContext(string connectionString)
+    {
+        _connectionString = connectionString;
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            "Server=localhost;Database=RestaurantReservationCore;Trusted_Connection=True;TrustServerCertificate=True;");
+            _connectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
