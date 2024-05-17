@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantReservation.Db;
 
@@ -11,9 +12,11 @@ using RestaurantReservation.Db;
 namespace RestaurantReservation.Db.Migrations
 {
     [DbContext(typeof(RestaurantReservationDbContext))]
-    partial class RestaurantReservationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240517185201_ReservationDetailsView")]
+    partial class ReservationDetailsView
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,24 +262,6 @@ namespace RestaurantReservation.Db.Migrations
                     b.HasIndex("RestaurantID");
 
                     b.ToTable("Tables");
-                });
-
-            modelBuilder.Entity("RestaurantReservation.Db.Entities.Views.ReservationDetails", b =>
-                {
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReservationID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RestaurantName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("ReservationDetails", (string)null);
                 });
 
             modelBuilder.Entity("RestaurantReservation.Db.Entities.Employee", b =>

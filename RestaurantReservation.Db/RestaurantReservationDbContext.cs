@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.Entities.Views;
 using RestaurantReservation.Db.Enums;
 
 namespace RestaurantReservation.Db;
@@ -17,6 +18,8 @@ public class RestaurantReservationDbContext : DbContext
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<Restaurant> Restaurants { get; set; }
     public DbSet<Table> Tables { get; set; }
+    public DbSet<ReservationDetails> ReservationDetails { get; set; }
+    public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,6 +34,8 @@ public class RestaurantReservationDbContext : DbContext
 
         modelBuilder.Entity<Customer>(ent => { ent.HasIndex(e => e.Email).IsUnique(); });
         modelBuilder.Entity<Employee>().Property(e => e.Position).HasConversion(positionConverter);
+        modelBuilder.Entity<ReservationDetails>().HasNoKey().ToView("ReservationDetails");
+        modelBuilder.Entity<EmployeeDetails>().HasNoKey().ToView("EmployeeDetails");
 
         base.OnModelCreating(modelBuilder);
     }
