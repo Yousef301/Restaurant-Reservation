@@ -36,7 +36,14 @@ public class RestaurantReservationDbContext : DbContext
         modelBuilder.Entity<Employee>().Property(e => e.Position).HasConversion(positionConverter);
         modelBuilder.Entity<ReservationDetails>().HasNoKey().ToView("ReservationDetails");
         modelBuilder.Entity<EmployeeDetails>().HasNoKey().ToView("EmployeeDetails");
+        modelBuilder
+            .HasDbFunction(typeof(RestaurantReservationDbContext).GetMethod(nameof(GetTotalRevenueByRestaurantId),
+                [typeof(int)]) ?? throw new InvalidOperationException())
+            .HasName("GetTotalRevenueByRestaurantID");
+
 
         base.OnModelCreating(modelBuilder);
     }
+
+    public decimal GetTotalRevenueByRestaurantId(int restaurantId) => throw new NotSupportedException();
 }
