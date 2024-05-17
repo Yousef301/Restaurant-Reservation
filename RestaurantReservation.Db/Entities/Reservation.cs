@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using RestaurantReservation.Db.Validation;
 
-namespace RestaurantReservation.Db.Entitis;
+namespace RestaurantReservation.Db.Entities;
 
 public class Reservation
 {
