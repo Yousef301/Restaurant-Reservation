@@ -1,4 +1,4 @@
-# Restaurant Reservation System
+# 🍴 Restaurant Reservation System 🍽
 
 ## **Requirements**:
 - Use .NET Core 5.0+
