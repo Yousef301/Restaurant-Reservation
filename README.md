@@ -1,12 +1,16 @@
 # Restaurant Reservation System
-**Before you start**
 
+## **Requirements**:
 - Use .NET Core 5.0+
 - Use **Asynchronous** methods in **LINQ**.
         
+## **Database Schema**:
+
 Before we dive into the task at hand, let's first explore the Database Schema. By meticulously examining the tables, deciphering their relationships, and grasping the significance of each, we will lay a strong foundation for addressing the subsequent question.
 
 ![](Images/databse_schema.png)
+
+## **Requirements**:
 
 1. Create a DB named **`RestaurantReservationCore`** (using SSMS).
 2. Create a console application project named **`RestaurantReservation`**.
