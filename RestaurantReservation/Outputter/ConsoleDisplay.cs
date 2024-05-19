@@ -13,4 +13,19 @@ public class ConsoleDisplay
             Console.Write(message);
         }
     }
+
+    public static void ClearScreen()
+    {
+        Console.Clear();
+    }
+
+    public static void SetForegroundColor(ConsoleColor color)
+    {
+        Console.ForegroundColor = color;
+    }
+
+    public static void ResetColor()
+    {
+        Console.ResetColor();
+    }
 }
