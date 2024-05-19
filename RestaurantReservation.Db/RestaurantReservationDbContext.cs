@@ -22,6 +22,10 @@ public class RestaurantReservationDbContext : DbContext
     public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
 
 
+    public RestaurantReservationDbContext()
+    {
+    }
+
     public RestaurantReservationDbContext(string connectionString)
     {
         _connectionString = connectionString;
@@ -29,8 +33,15 @@ public class RestaurantReservationDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(
-            _connectionString);
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer(
+                "Server=localhost;Database=RestaurantReservationCore;Trusted_Connection=True;TrustServerCertificate=True;");
+        }
+        else
+        {
+            optionsBuilder.UseSqlServer(_connectionString);
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,7 +56,6 @@ public class RestaurantReservationDbContext : DbContext
             .HasDbFunction(typeof(RestaurantReservationDbContext).GetMethod(nameof(GetTotalRevenueByRestaurantId),
                 [typeof(int)]) ?? throw new InvalidOperationException())
             .HasName("GetTotalRevenueByRestaurantID");
-
 
         base.OnModelCreating(modelBuilder);
     }
