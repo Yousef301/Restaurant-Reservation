@@ -6,7 +6,7 @@
         
 Before we dive into the task at hand, let's first explore the Database Schema. By meticulously examining the tables, deciphering their relationships, and grasping the significance of each, we will lay a strong foundation for addressing the subsequent question.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/ddf5996a-820b-4471-852d-f26ee54b7580/460235df-5629-43bf-b778-d90ba1fd231b/Untitled.png)
+![](Images/databse schema.png)
 
 1. Create a DB named **`RestaurantReservationCore`** (using SSMS).
 2. Create a console application project named **`RestaurantReservation`**.
