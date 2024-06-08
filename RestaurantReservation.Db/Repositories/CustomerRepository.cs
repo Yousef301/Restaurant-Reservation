@@ -19,7 +19,7 @@ namespace RestaurantReservation.Db.Repositories
                 return "Customer with this email already exists.";
             }
 
-            _context.Customers.Add(customer);
+            await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
             return "Customer added successfully.";
         }

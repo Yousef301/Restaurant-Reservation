@@ -13,7 +13,7 @@ public class TableRepository
 
     public async Task<string> AddTableAsync(Table table)
     {
-        _context.Tables.Add(table);
+        await _context.Tables.AddAsync(table);
         await _context.SaveChangesAsync();
         return "Table added successfully.";
     }

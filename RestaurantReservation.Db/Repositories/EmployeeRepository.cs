@@ -15,7 +15,7 @@ public class EmployeeRepository
 
     public async Task<string> AddEmployeeAsync(Employee employee)
     {
-        _context.Employees.Add(employee);
+        await _context.Employees.AddAsync(employee);
         await _context.SaveChangesAsync();
         return "Employee added successfully.";
     }

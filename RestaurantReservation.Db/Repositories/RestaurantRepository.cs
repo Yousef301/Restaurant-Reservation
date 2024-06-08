@@ -13,7 +13,7 @@ public class RestaurantRepository
 
     public async Task<string> AddRestaurantAsync(Restaurant restaurant)
     {
-        _context.Restaurants.Add(restaurant);
+        await _context.Restaurants.AddAsync(restaurant);
         await _context.SaveChangesAsync();
         return "Restaurant added successfully.";
     }

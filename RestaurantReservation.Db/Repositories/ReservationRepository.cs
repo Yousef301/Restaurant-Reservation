@@ -14,7 +14,7 @@ public class ReservationRepository
 
     public async Task<string> AddReservationAsync(Reservation reservation)
     {
-        _context.Reservations.Add(reservation);
+        await _context.Reservations.AddAsync(reservation);
         await _context.SaveChangesAsync();
         return "Reservation added successfully.";
     }

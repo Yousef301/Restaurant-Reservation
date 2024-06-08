@@ -13,7 +13,7 @@ public class OrderItemRepository
 
     public async Task<string> AddOrderItemAsync(OrderItem orderItem)
     {
-        _context.OrderItems.Add(orderItem);
+        await _context.OrderItems.AddAsync(orderItem);
         await _context.SaveChangesAsync();
         return "Order item added successfully.";
     }

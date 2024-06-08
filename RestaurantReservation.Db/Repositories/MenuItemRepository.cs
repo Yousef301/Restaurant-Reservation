@@ -14,7 +14,7 @@ public class MenuItemRepository
 
     public async Task<string> AddMenuItemAsync(MenuItem menuItem)
     {
-        _context.MenuItems.Add(menuItem);
+        await _context.MenuItems.AddAsync(menuItem);
         await _context.SaveChangesAsync();
         return "Menu item added successfully.";
     }
