@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.ConsoleIO.ConsoleOutput;
+using RestaurantReservation.ConsoleIO.Reader;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories;
 using RestaurantReservation.Helpers;
-using RestaurantReservation.Outputter;
-using RestaurantReservation.Reader;
 
 public class Program
 {

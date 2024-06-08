@@ -1,4 +1,4 @@
-﻿namespace RestaurantReservation.Reader;
+﻿namespace RestaurantReservation.ConsoleIO.Reader;
 
 public class ConsoleReader
 {

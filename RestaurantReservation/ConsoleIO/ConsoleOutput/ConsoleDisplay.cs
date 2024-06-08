@@ -1,4 +1,4 @@
-﻿namespace RestaurantReservation.Outputter;
+﻿namespace RestaurantReservation.ConsoleIO.ConsoleOutput;
 
 public class ConsoleDisplay
 {
