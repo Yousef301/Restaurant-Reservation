@@ -12,14 +12,14 @@ public class MenuItemRepository
         _context = context;
     }
 
-    public async Task<string> AddMenuItem(MenuItem menuItem)
+    public async Task<string> AddMenuItemAsync(MenuItem menuItem)
     {
         _context.MenuItems.Add(menuItem);
         await _context.SaveChangesAsync();
         return "Menu item added successfully.";
     }
 
-    public async Task<string> UpdateMenuItem(MenuItem menuItem)
+    public async Task<string> UpdateMenuItemAsync(MenuItem menuItem)
     {
         var existingMenuItem = await _context.MenuItems.FindAsync(menuItem.ItemID);
         if (existingMenuItem == null)
@@ -32,7 +32,7 @@ public class MenuItemRepository
         return "Menu item updated successfully.";
     }
 
-    public async Task<string> DeleteMenuItem(int menuItemId)
+    public async Task<string> DeleteMenuItemAsync(int menuItemId)
     {
         var existingMenuItem = await _context.MenuItems.FindAsync(menuItemId);
         if (existingMenuItem == null)
@@ -45,12 +45,12 @@ public class MenuItemRepository
         return "Menu item deleted successfully.";
     }
 
-    public async Task<MenuItem?> GetMenuItem(int menuItemId)
+    public async Task<MenuItem?> GetMenuItemAsync(int menuItemId)
     {
         return await _context.MenuItems.FindAsync(menuItemId);
     }
 
-    public async Task<List<MenuItem>> ListOrderedMenuItems(int reservationId)
+    public async Task<List<MenuItem>> ListOrderedMenuItemsAsync(int reservationId)
     {
         return await _context.OrderItems
             .Where(oi => oi.Order.ReservationID == reservationId)

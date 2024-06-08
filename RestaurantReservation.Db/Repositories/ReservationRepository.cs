@@ -12,14 +12,14 @@ public class ReservationRepository
         _context = context;
     }
 
-    public async Task<string> AddReservation(Reservation reservation)
+    public async Task<string> AddReservationAsync(Reservation reservation)
     {
         _context.Reservations.Add(reservation);
         await _context.SaveChangesAsync();
         return "Reservation added successfully.";
     }
 
-    public async Task<string> UpdateReservation(Reservation reservation)
+    public async Task<string> UpdateReservationAsync(Reservation reservation)
     {
         var existingReservation = await _context.Reservations.FindAsync(reservation.ReservationID);
         if (existingReservation == null)
@@ -32,7 +32,7 @@ public class ReservationRepository
         return "Reservation updated successfully.";
     }
 
-    public async Task<string> DeleteReservation(int reservationId)
+    public async Task<string> DeleteReservationAsync(int reservationId)
     {
         var existingReservation = await _context.Reservations.FindAsync(reservationId);
         if (existingReservation == null)
@@ -45,17 +45,17 @@ public class ReservationRepository
         return "Reservation deleted successfully.";
     }
 
-    public async Task<Reservation?> GetReservation(int reservationId)
+    public async Task<Reservation?> GetReservationAsync(int reservationId)
     {
         return await _context.Reservations.FindAsync(reservationId);
     }
 
-    public async Task<List<Reservation>> GetReservationsByCustomer(int customerId)
+    public async Task<List<Reservation>> GetReservationsByCustomerAsync(int customerId)
     {
         return await _context.Reservations.Where(r => r.CustomerID == customerId).ToListAsync();
     }
 
-    public async Task<Reservation?> ListOrdersAndMenuItems(int reservationId)
+    public async Task<Reservation?> ListOrdersAndMenuItemsAsync(int reservationId)
     {
         return await _context.Reservations
             .Include(r => r.Orders)

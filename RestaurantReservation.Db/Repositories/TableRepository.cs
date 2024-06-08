@@ -11,14 +11,14 @@ public class TableRepository
         _context = context;
     }
 
-    public async Task<string> AddTable(Table table)
+    public async Task<string> AddTableAsync(Table table)
     {
         _context.Tables.Add(table);
         await _context.SaveChangesAsync();
         return "Table added successfully.";
     }
 
-    public async Task<string> UpdateTable(Table table)
+    public async Task<string> UpdateTableAsync(Table table)
     {
         var existingTable = await _context.Tables.FindAsync(table.TableID);
         if (existingTable == null)
@@ -31,7 +31,7 @@ public class TableRepository
         return "Table updated successfully.";
     }
 
-    public async Task<string> DeleteTable(int tableId)
+    public async Task<string> DeleteTableAsync(int tableId)
     {
         var existingTable = await _context.Tables.FindAsync(tableId);
         if (existingTable == null)
@@ -44,7 +44,7 @@ public class TableRepository
         return "Table deleted successfully.";
     }
 
-    public async Task<Table?> GetTable(int tableId)
+    public async Task<Table?> GetTableAsync(int tableId)
     {
         return await _context.Tables.FindAsync(tableId);
     }

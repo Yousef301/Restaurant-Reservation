@@ -12,9 +12,9 @@ namespace RestaurantReservation.Db.Repositories
             _context = context;
         }
 
-        public async Task<string> AddCustomer(Customer customer)
+        public async Task<string> AddCustomerAsync(Customer customer)
         {
-            if (await EmailExists(customer.Email))
+            if (await EmailExistsAsync(customer.Email))
             {
                 return "Customer with this email already exists.";
             }
@@ -24,7 +24,7 @@ namespace RestaurantReservation.Db.Repositories
             return "Customer added successfully.";
         }
 
-        public async Task<string> UpdateCustomer(Customer customer)
+        public async Task<string> UpdateCustomerAsync(Customer customer)
         {
             var existingCustomer = await _context.Customers.FindAsync(customer.CustomerID);
             if (existingCustomer == null)
@@ -37,7 +37,7 @@ namespace RestaurantReservation.Db.Repositories
             return "Customer updated successfully.";
         }
 
-        public async Task<string> DeleteCustomer(int customerId)
+        public async Task<string> DeleteCustomerAsync(int customerId)
         {
             var existingCustomer = await _context.Customers.FindAsync(customerId);
             if (existingCustomer == null)
@@ -50,17 +50,17 @@ namespace RestaurantReservation.Db.Repositories
             return "Customer deleted successfully.";
         }
 
-        public async Task<Customer?> GetCustomer(int customerId)
+        public async Task<Customer?> GetCustomerAsync(int customerId)
         {
             return await _context.Customers.FindAsync(customerId);
         }
 
-        private async Task<bool> EmailExists(string email)
+        private async Task<bool> EmailExistsAsync(string email)
         {
             return await _context.Customers.AnyAsync(c => c.Email == email);
         }
 
-        public async Task<List<Customer>> GetCustomersByPartySize(int partySize)
+        public async Task<List<Customer>> GetCustomersByPartySizeAsync(int partySize)
         {
             return _context.Customers.FromSqlInterpolated($"GetCustomersByPartySize {partySize}").ToList();
         }

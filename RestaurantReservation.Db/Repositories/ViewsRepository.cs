@@ -12,12 +12,12 @@ public class ViewsRepository
         _context = context;
     }
 
-    public async Task<List<ReservationDetails>> GetReservationsDetails()
+    public async Task<List<ReservationDetails>> GetReservationsDetailsAsync()
     {
         return await _context.ReservationDetails.ToListAsync();
     }
 
-    public async Task<List<EmployeeDetails>> GetEmployeesDetails()
+    public async Task<List<EmployeeDetails>> GetEmployeesDetailsAsync()
     {
         return await _context.EmployeeDetails.ToListAsync();
     }

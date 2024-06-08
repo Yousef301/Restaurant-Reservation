@@ -11,14 +11,14 @@ public class RestaurantRepository
         _context = context;
     }
 
-    public async Task<string> AddRestaurant(Restaurant restaurant)
+    public async Task<string> AddRestaurantAsync(Restaurant restaurant)
     {
         _context.Restaurants.Add(restaurant);
         await _context.SaveChangesAsync();
         return "Restaurant added successfully.";
     }
 
-    public async Task<string> UpdateRestaurant(Restaurant restaurant)
+    public async Task<string> UpdateRestaurantAsync(Restaurant restaurant)
     {
         var existingRestaurant = await _context.Restaurants.FindAsync(restaurant.RestaurantID);
         if (existingRestaurant == null)
@@ -31,7 +31,7 @@ public class RestaurantRepository
         return "Restaurant updated successfully.";
     }
 
-    public async Task<string> DeleteRestaurant(int restaurantId)
+    public async Task<string> DeleteRestaurantAsync(int restaurantId)
     {
         var existingRestaurant = await _context.Restaurants.FindAsync(restaurantId);
         if (existingRestaurant == null)
@@ -44,7 +44,7 @@ public class RestaurantRepository
         return "Restaurant deleted successfully.";
     }
 
-    public async Task<Restaurant?> GetRestaurant(int restaurantId)
+    public async Task<Restaurant?> GetRestaurantAsync(int restaurantId)
     {
         return await _context.Restaurants.FindAsync(restaurantId);
     }

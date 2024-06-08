@@ -43,7 +43,7 @@ public class Program
                                     if (ValidatorHelper.TryValidate(customer, out var results))
                                     {
                                         ConsoleDisplay.SetForegroundColor(ConsoleColor.Cyan);
-                                        await customerRepository.AddCustomer(customer);
+                                        await customerRepository.AddCustomerAsync(customer);
                                         ConsoleDisplay.MessageDisplay("Customer added successfully.");
                                         ConsoleDisplay.ResetColor();
                                     }
@@ -75,7 +75,7 @@ public class Program
                                     {
                                         ConsoleDisplay.SetForegroundColor(ConsoleColor.Cyan);
                                         ConsoleDisplay.MessageDisplay(
-                                            await customerRepository.UpdateCustomer(customer));
+                                            await customerRepository.UpdateCustomerAsync(customer));
                                         ConsoleDisplay.ResetColor();
                                     }
                                     else
@@ -101,7 +101,7 @@ public class Program
                                     var customerId = ConsoleReader.ReadInput();
                                     ConsoleDisplay.SetForegroundColor(ConsoleColor.Cyan);
                                     ConsoleDisplay.MessageDisplay(
-                                        await customerRepository.DeleteCustomer(int.Parse(customerId)));
+                                        await customerRepository.DeleteCustomerAsync(int.Parse(customerId)));
                                     ConsoleDisplay.ResetColor();
                                 }
 
@@ -113,7 +113,7 @@ public class Program
                                     var customerRepository = new CustomerRepository(context);
                                     ConsoleDisplay.MessageDisplay("Enter customer ID: ", false);
                                     var customerId = ConsoleReader.ReadInput();
-                                    var customer = await customerRepository.GetCustomer(int.Parse(customerId));
+                                    var customer = await customerRepository.GetCustomerAsync(int.Parse(customerId));
                                     if (customer != null)
                                     {
                                         ConsoleDisplay.SetForegroundColor(ConsoleColor.Cyan);
@@ -142,7 +142,7 @@ public class Program
                     {
                         var employeeRepository = new EmployeeRepository(context);
 
-                        var managers = await employeeRepository.ListManager();
+                        var managers = await employeeRepository.ListManagerAsync();
 
                         if (managers.Count == 0)
                         {
@@ -180,12 +180,12 @@ public class Program
                             break;
                         }
 
-                        var customer = await customerRepository.GetCustomer(int.Parse(customerId));
+                        var customer = await customerRepository.GetCustomerAsync(int.Parse(customerId));
 
                         if (customer != null)
                         {
                             var reservations =
-                                await reservationRepository.GetReservationsByCustomer(customer.CustomerID);
+                                await reservationRepository.GetReservationsByCustomerAsync(customer.CustomerID);
 
                             ConsoleDisplay.SetForegroundColor(ConsoleColor.DarkCyan);
                             if (reservations.Count == 0)
@@ -229,7 +229,7 @@ public class Program
                             break;
                         }
 
-                        var reservations = await reservationRepository.ListOrdersAndMenuItems(int.Parse(reservationId));
+                        var reservations = await reservationRepository.ListOrdersAndMenuItemsAsync(int.Parse(reservationId));
 
                         if (reservations != null)
                         {
@@ -274,7 +274,7 @@ public class Program
                             break;
                         }
 
-                        var items = await menuItem.ListOrderedMenuItems(int.Parse(reservationId));
+                        var items = await menuItem.ListOrderedMenuItemsAsync(int.Parse(reservationId));
 
                         ConsoleDisplay.SetForegroundColor(ConsoleColor.Cyan);
                         foreach (var item in items)
@@ -304,9 +304,9 @@ public class Program
                             break;
                         }
 
-                        var employee = await employeeRepository.GetEmployee(int.Parse(employeeId));
+                        var employee = await employeeRepository.GetEmployeeAsync(int.Parse(employeeId));
                         var averageOrderAmount =
-                            await employeeRepository.CalculateAverageOrderAmount(int.Parse(employeeId));
+                            await employeeRepository.CalculateAverageOrderAmountAsync(int.Parse(employeeId));
 
                         ConsoleDisplay.SetForegroundColor(ConsoleColor.Cyan);
                         ConsoleDisplay.MessageDisplay(
@@ -332,7 +332,7 @@ public class Program
                                 {
                                     var viewsRepository = new ViewsRepository(context);
 
-                                    var reservations = await viewsRepository.GetReservationsDetails();
+                                    var reservations = await viewsRepository.GetReservationsDetailsAsync();
 
                                     ConsoleDisplay.SetForegroundColor(ConsoleColor.Cyan);
                                     foreach (var reservation in reservations)
@@ -353,7 +353,7 @@ public class Program
                                 {
                                     var viewsRepository = new ViewsRepository(context);
 
-                                    var employeeDetails = await viewsRepository.GetEmployeesDetails();
+                                    var employeeDetails = await viewsRepository.GetEmployeesDetailsAsync();
 
                                     ConsoleDisplay.SetForegroundColor(ConsoleColor.Cyan);
                                     foreach (var employeeDetail in employeeDetails)
@@ -414,7 +414,7 @@ public class Program
                             break;
                         }
 
-                        var results = await customerRepository.GetCustomersByPartySize(int.Parse(partySize));
+                        var results = await customerRepository.GetCustomersByPartySizeAsync(int.Parse(partySize));
 
                         ConsoleDisplay.SetForegroundColor(ConsoleColor.Cyan);
                         foreach (var customer in results)

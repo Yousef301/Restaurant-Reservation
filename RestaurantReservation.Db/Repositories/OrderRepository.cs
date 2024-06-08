@@ -11,14 +11,14 @@ public class OrderRepository
         _context = context;
     }
 
-    public async Task<string> AddOrder(Order order)
+    public async Task<string> AddOrderAsync(Order order)
     {
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
         return "Order added successfully.";
     }
 
-    public async Task<string> UpdateOrder(Order order)
+    public async Task<string> UpdateOrderAsync(Order order)
     {
         var existingOrder = await _context.Orders.FindAsync(order.OrderID);
         if (existingOrder == null)
@@ -31,7 +31,7 @@ public class OrderRepository
         return "Order updated successfully.";
     }
 
-    public async Task<string> DeleteOrder(int orderId)
+    public async Task<string> DeleteOrderAsync(int orderId)
     {
         var existingOrder = await _context.Orders.FindAsync(orderId);
         if (existingOrder == null)
@@ -44,7 +44,7 @@ public class OrderRepository
         return "Order deleted successfully.";
     }
 
-    public async Task<Order?> GetOrder(int orderId)
+    public async Task<Order?> GetOrderAsync(int orderId)
     {
         return await _context.Orders.FindAsync(orderId);
     }
