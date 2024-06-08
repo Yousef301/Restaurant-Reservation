@@ -55,24 +55,24 @@ INSERT INTO Tables (RestaurantID, Capacity) VALUES
 -- Inserting records into the Reservation table with random future dates between 3 and 10 days from now
 INSERT INTO Reservations (CustomerID, RestaurantID, TableID, ReservationDate, PartySize)
 VALUES
-(1, 1, 1, DATEADD(day, RAND()*(10-3)+3, GETDATE()), 4),
-(2, 1, 2, DATEADD(day, RAND()*(10-3)+3, GETDATE()), 2),
-(3, 2, 3, DATEADD(day, RAND()*(10-3)+3, GETDATE()), 6),
-(4, 2, 4, DATEADD(day, RAND()*(10-3)+3, GETDATE()), 3),
-(5, 3, 5, DATEADD(day, RAND()*(10-3)+3, GETDATE()), 5),
-(2, 3, 6, DATEADD(day, RAND()*(10-3)+3, GETDATE()), 8),
-(3, 4, 7, DATEADD(day, RAND()*(10-3)+3, GETDATE()), 10),
-(1, 5, 8, DATEADD(day, RAND()*(10-3)+3, GETDATE()), 12);
+(1, 1, 1, '2023-01-06', GETDATE()), 4),
+(2, 1, 2, '2023-02-23', GETDATE()), 2),
+(3, 2, 3, '2023-07-12', GETDATE()), 6),
+(4, 2, 4, '2023-12-21', GETDATE()), 3),
+(5, 3, 5, '2024-01-01', GETDATE()), 5),
+(2, 3, 6, '2024-02-06', GETDATE()), 8),
+(3, 4, 7, '2024-04-12', GETDATE()), 10),
+(1, 5, 8, '2024-05-13', GETDATE()), 12);
 
 
 -- Inserting records into the Order table
 INSERT INTO Orders (ReservationID, EmployeeID, TotalAmount, OrderDate) VALUES
-(1, 1, 50.00, GETDATE()),
-(3, 2, 35.00, GETDATE()),
-(5, 3, 60.00, GETDATE()),
-(6, 4, 25.00, GETDATE()),
-(3, 5, 70.00, GETDATE()),
-(7, 6, 45.00, GETDATE()),
+(1, 1, 50.00, '2023-04-15'),
+(3, 2, 35.00, '2023-08-13'),
+(5, 3, 60.00, '2023-11-28'),
+(6, 4, 25.00, '2023-12-22'),
+(3, 5, 70.00, '2024-02-11'),
+(7, 6, 45.00, '2024-05-15'),
 (8, 7, 55.00, GETDATE());
 
 
