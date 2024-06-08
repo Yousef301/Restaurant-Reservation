@@ -16,7 +16,7 @@ public class Restaurant
     [MaxLength(100)]
     public string Address { get; set; }
 
-    [Required] [Phone] public string PhoneNumber { get; set; }
+    [Required] [Phone] [MaxLength(20)] public string PhoneNumber { get; set; }
 
     [Required]
     [MinLength(5)]
