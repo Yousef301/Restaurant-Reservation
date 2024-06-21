@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.DTOs;
 
 namespace RestaurantReservation.Db.Validators;
 
-public class TableValidator : AbstractValidator<Table>
+public class TableDtoValidator : AbstractValidator<TableDto>
 {
-    public TableValidator()
+    public TableDtoValidator()
     {
         RuleFor(table => table.RestaurantID).NotEmpty();
         RuleFor(table => table.Capacity).InclusiveBetween(1, 20);

@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.DTOs;
 
 namespace RestaurantReservation.Db.Validators;
 
-public class RestaurantValidator : AbstractValidator<Restaurant>
+public class RestaurantDtoValidator : AbstractValidator<RestaurantDto>
 {
-public RestaurantValidator()
+public RestaurantDtoValidator()
     {
         RuleFor(x => x.Name).NotEmpty().Length(2, 50);
         RuleFor(x => x.Address).NotEmpty().Length(1, 100);
