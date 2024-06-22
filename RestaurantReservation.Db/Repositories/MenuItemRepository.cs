@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.Repositories.Interfaces;
 
 namespace RestaurantReservation.Db.Repositories;
 
-public class MenuItemRepository
+public class MenuItemRepository : IMenuItemsRepository
 {
     private readonly RestaurantReservationDbContext _context;
 
@@ -12,49 +13,102 @@ public class MenuItemRepository
         _context = context;
     }
 
-    public async Task<string> AddMenuItemAsync(MenuItem menuItem)
+    public async Task<MenuItem> AddMenuItemAsync(MenuItem menuItem)
     {
-        await _context.MenuItems.AddAsync(menuItem);
-        await _context.SaveChangesAsync();
-        return "Menu item added successfully.";
+        try
+        {
+            await _context.MenuItems.AddAsync(menuItem);
+            await _context.SaveChangesAsync();
+            return menuItem;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public async Task<string> UpdateMenuItemAsync(MenuItem menuItem)
+    public async Task<bool> UpdateMenuItemAsync(int menuItemId, MenuItem menuItem)
     {
-        var existingMenuItem = await _context.MenuItems.FindAsync(menuItem.ItemID);
-        if (existingMenuItem == null)
+        try
         {
-            return "Menu item not found.";
-        }
+            var existingMenuItem = await _context.MenuItems.FindAsync(menuItemId);
+            if (existingMenuItem == null)
+            {
+                return false;
+            }
 
-        _context.Entry(existingMenuItem).CurrentValues.SetValues(menuItem);
-        await _context.SaveChangesAsync();
-        return "Menu item updated successfully.";
+            _context.Entry(existingMenuItem).CurrentValues.SetValues(menuItem);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public async Task<string> DeleteMenuItemAsync(int menuItemId)
+    public async Task<bool> DeleteMenuItemAsync(MenuItem menuItem)
     {
-        var existingMenuItem = await _context.MenuItems.FindAsync(menuItemId);
-        if (existingMenuItem == null)
+        try
         {
-            return "Menu item not found.";
-        }
+            var existingMenuItem = await _context.MenuItems.FindAsync(menuItem.ItemID);
+            if (existingMenuItem == null)
+            {
+                return false;
+            }
 
-        _context.MenuItems.Remove(existingMenuItem);
-        await _context.SaveChangesAsync();
-        return "Menu item deleted successfully.";
+            _context.MenuItems.Remove(existingMenuItem);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     public async Task<MenuItem?> GetMenuItemAsync(int menuItemId)
     {
-        return await _context.MenuItems.FindAsync(menuItemId);
+        try
+        {
+            return await _context.MenuItems.FindAsync(menuItemId);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     public async Task<List<MenuItem>> ListOrderedMenuItemsAsync(int reservationId)
     {
-        return await _context.OrderItems
-            .Where(oi => oi.Order.ReservationID == reservationId)
-            .Select(oi => oi.Item)
-            .ToListAsync();
+        try
+        {
+            return await _context.OrderItems
+                .Where(oi => oi.Order.ReservationID == reservationId)
+                .Select(oi => oi.Item)
+                .ToListAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }
