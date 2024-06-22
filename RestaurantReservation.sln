@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReservation", "Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReservation.Db", "RestaurantReservation.Db\RestaurantReservation.Db.csproj", "{7802418F-A647-464D-A0D6-85C6CC528F20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReservation.API", "RestaurantReservation.API\RestaurantReservation.API.csproj", "{CCB37E05-261D-40C2-9823-27CFD4DFFD52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{7802418F-A647-464D-A0D6-85C6CC528F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7802418F-A647-464D-A0D6-85C6CC528F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7802418F-A647-464D-A0D6-85C6CC528F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCB37E05-261D-40C2-9823-27CFD4DFFD52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCB37E05-261D-40C2-9823-27CFD4DFFD52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCB37E05-261D-40C2-9823-27CFD4DFFD52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCB37E05-261D-40C2-9823-27CFD4DFFD52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
