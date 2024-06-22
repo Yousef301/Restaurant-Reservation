@@ -113,7 +113,13 @@ public class EmployeesController : ControllerBase
 
         return Ok(_mapper.Map<IEnumerable<EmployeeDto>>(managers));
     }
-
+    
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="employeeId">The employee id</param>
+    /// <returns>Returns average order amount for a specific employee</returns>
     [HttpGet("{employeeId:int}/average-order-amount")]
     public async Task<IActionResult> GetAverageOrderAmount(int employeeId)
     {

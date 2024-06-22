@@ -111,6 +111,11 @@ public class CustomerController : ControllerBase
         return Ok(updatedCustomer);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"> The id of the customer</param>
+    /// <returns>the reservations for the selected customer</returns>
     [HttpGet("{id:int}/reservations")]
     public async Task<IActionResult> GetCustomerReservations(int id)
     {

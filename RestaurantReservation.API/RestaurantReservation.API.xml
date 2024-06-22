@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RestaurantReservation.API</name>
+    </assembly>
+    <members>
+        <member name="M:RestaurantReservation.API.Controllers.AuthenticationController.AuthenticateUser(RestaurantReservation.API.Authentication.UserCredentials)">
+            <summary>
+                
+            </summary>
+            <param name="userCredentials">The email of the customer</param>
+            <returns>Authentication token</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.CustomerController.GetCustomerReservations(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"> The id of the customer</param>
+            <returns>the reservations for the selected customer</returns>
+        </member>
+        <member name="M:RestaurantReservation.API.Controllers.EmployeesController.GetAverageOrderAmount(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="employeeId">The employee id</param>
+            <returns>Returns average order amount for a specific employee</returns>
+        </member>
+    </members>
+</doc>

@@ -24,12 +24,20 @@ builder.Services.AddDbContext<RestaurantReservationDbContext>(
     dbContextOptions =>
         dbContextOptions.UseSqlServer(builder.Configuration["ConnectionStrings:RestaurantReservationDb"]));
 
-builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
-builder.Services.AddScoped<IEmployeesRepository, EmployeesRepository>();
-builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
-builder.Services.AddScoped<IOrdersRepository, OrderRepository>();
-builder.Services.AddScoped<IMenuItemsRepository, MenuItemRepository>();
-builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+builder.Services.AddSwaggerGen(setupAction =>
+{
+    var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+    setupAction.IncludeXmlComments(xmlCommentsFullPath);
+});
+
+builder.Services.AddTransient<ICustomersRepository, CustomersRepository>();
+builder.Services.AddTransient<IEmployeesRepository, EmployeesRepository>();
+builder.Services.AddTransient<IReservationsRepository, ReservationsRepository>();
+builder.Services.AddTransient<IOrdersRepository, OrderRepository>();
+builder.Services.AddTransient<IMenuItemsRepository, MenuItemRepository>();
+builder.Services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
 
 // Register AutoMapper by scanning all assemblies
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

@@ -16,7 +16,13 @@ public class AuthenticationController : ControllerBase
         _customersRepository = customersRepository;
         _jwtTokenGenerator = jwtTokenGenerator;
     }
-
+    
+    
+    /// <summary>
+    ///     
+    /// </summary>
+    /// <param name="userCredentials">The email of the customer</param>
+    /// <returns>Authentication token</returns>
     [HttpPost]
     public async Task<IActionResult> AuthenticateUser(UserCredentials userCredentials)
     {
