@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories.Interfaces;
+using Serilog;
 
 namespace RestaurantReservation.Db.Repositories;
 
@@ -23,7 +24,7 @@ public class ReservationsRepository : IReservationsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error adding reservation");
             throw;
         }
     }
@@ -44,7 +45,7 @@ public class ReservationsRepository : IReservationsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error updating reservation");
             throw;
         }
     }
@@ -65,7 +66,7 @@ public class ReservationsRepository : IReservationsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error deleting reservation");
             throw;
         }
     }
@@ -78,7 +79,7 @@ public class ReservationsRepository : IReservationsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error getting reservation");
             throw;
         }
     }
@@ -91,7 +92,7 @@ public class ReservationsRepository : IReservationsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error getting reservations");
             throw;
         }
     }
@@ -104,7 +105,7 @@ public class ReservationsRepository : IReservationsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error getting reservations by customer");
             throw;
         }
     }
@@ -121,7 +122,7 @@ public class ReservationsRepository : IReservationsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error listing orders and menu items");
             throw;
         }
     }
@@ -134,7 +135,7 @@ public class ReservationsRepository : IReservationsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error getting customer reservations");
             throw;
         }
     }
@@ -147,7 +148,7 @@ public class ReservationsRepository : IReservationsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error saving changes");
             throw;
         }
     }

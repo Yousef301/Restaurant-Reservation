@@ -1,4 +1,5 @@
 ﻿using RestaurantReservation.Db.Entities;
+using Serilog;
 
 namespace RestaurantReservation.Db.Repositories;
 
@@ -11,41 +12,73 @@ public class TableRepository
         _context = context;
     }
 
-    public async Task<string> AddTableAsync(Table table)
+    public async Task<Table> AddTableAsync(Table table)
     {
-        await _context.Tables.AddAsync(table);
-        await _context.SaveChangesAsync();
-        return "Table added successfully.";
+        try
+        {
+            await _context.Tables.AddAsync(table);
+            await _context.SaveChangesAsync();
+            return table;
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Error adding table");
+            throw;
+        }
     }
 
-    public async Task<string> UpdateTableAsync(Table table)
+    public async Task<bool> UpdateTableAsync(Table table)
     {
-        var existingTable = await _context.Tables.FindAsync(table.TableID);
-        if (existingTable == null)
+        try
         {
-            return "Table not found.";
-        }
+            var existingTable = await _context.Tables.FindAsync(table.TableID);
+            if (existingTable == null)
+            {
+                return false;
+            }
 
-        _context.Entry(existingTable).CurrentValues.SetValues(table);
-        await _context.SaveChangesAsync();
-        return "Table updated successfully.";
+            _context.Entry(existingTable).CurrentValues.SetValues(table);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Error updating table");
+            throw;
+        }
     }
 
-    public async Task<string> DeleteTableAsync(int tableId)
+    public async Task<bool> DeleteTableAsync(int tableId)
     {
-        var existingTable = await _context.Tables.FindAsync(tableId);
-        if (existingTable == null)
+        try
         {
-            return "Table not found.";
-        }
+            var existingTable = await _context.Tables.FindAsync(tableId);
+            if (existingTable == null)
+            {
+                return false;
+            }
 
-        _context.Tables.Remove(existingTable);
-        await _context.SaveChangesAsync();
-        return "Table deleted successfully.";
+            _context.Tables.Remove(existingTable);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Error deleting table");
+            throw;
+        }
     }
 
     public async Task<Table?> GetTableAsync(int tableId)
     {
-        return await _context.Tables.FindAsync(tableId);
+        try
+        {
+            return await _context.Tables.FindAsync(tableId);
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Error getting table");
+            throw;
+        }
     }
 }

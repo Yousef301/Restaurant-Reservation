@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories.Interfaces;
+using Serilog;
 
 namespace RestaurantReservation.Db.Repositories;
 
@@ -23,7 +24,7 @@ public class MenuItemRepository : IMenuItemsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to add menu item");
             throw;
         }
     }
@@ -44,7 +45,7 @@ public class MenuItemRepository : IMenuItemsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to update menu item");
             throw;
         }
     }
@@ -65,7 +66,7 @@ public class MenuItemRepository : IMenuItemsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to delete menu item");
             throw;
         }
     }
@@ -78,7 +79,7 @@ public class MenuItemRepository : IMenuItemsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to get menu item");
             throw;
         }
     }
@@ -94,7 +95,7 @@ public class MenuItemRepository : IMenuItemsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to list menu items");
             throw;
         }
     }
@@ -107,7 +108,7 @@ public class MenuItemRepository : IMenuItemsRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to save changes");
             throw;
         }
     }

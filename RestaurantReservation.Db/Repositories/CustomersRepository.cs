@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories.Interfaces;
+using Serilog;
 
 namespace RestaurantReservation.Db.Repositories
 {
@@ -28,7 +29,7 @@ namespace RestaurantReservation.Db.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Log.Error(e, "Error adding customer");
                 throw;
             }
         }
@@ -49,7 +50,7 @@ namespace RestaurantReservation.Db.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Log.Error(e, "Error updating customer");
                 throw;
             }
         }
@@ -70,7 +71,7 @@ namespace RestaurantReservation.Db.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Log.Error(e, "Error deleting customer");
                 throw;
             }
         }
@@ -83,7 +84,7 @@ namespace RestaurantReservation.Db.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Log.Error(e, "Error getting customers");
                 throw;
             }
         }
@@ -96,7 +97,20 @@ namespace RestaurantReservation.Db.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Log.Error(e, "Error getting customer");
+                throw;
+            }
+        }
+
+        public async Task<Customer?> GetCustomerByEmailAsync(string email)
+        {
+            try
+            {
+                return await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Error getting customer by email");
                 throw;
             }
         }
@@ -109,7 +123,7 @@ namespace RestaurantReservation.Db.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Log.Error(e, "Error checking if email exists");
                 throw;
             }
         }
@@ -123,7 +137,7 @@ namespace RestaurantReservation.Db.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Log.Error(e, "Error getting customers by party size");
                 throw;
             }
         }
@@ -136,7 +150,7 @@ namespace RestaurantReservation.Db.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Log.Error(e, "Error saving changes");
                 throw;
             }
         }

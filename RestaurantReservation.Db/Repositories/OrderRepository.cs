@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Repositories.Interfaces;
+using Serilog;
 
 namespace RestaurantReservation.Db.Repositories;
 
@@ -15,9 +16,17 @@ public class OrderRepository : IOrdersRepository
 
     public async Task<Order> AddOrderAsync(Order order)
     {
-        await _context.Orders.AddAsync(order);
-        await _context.SaveChangesAsync();
-        return order;
+        try
+        {
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+            return order;
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Failed to add order");
+            throw;
+        }
     }
 
     public async Task<bool> UpdateOrderAsync(int id, Order order)
@@ -36,7 +45,7 @@ public class OrderRepository : IOrdersRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to update order");
             throw;
         }
     }
@@ -57,7 +66,7 @@ public class OrderRepository : IOrdersRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to delete order");
             throw;
         }
     }
@@ -72,7 +81,7 @@ public class OrderRepository : IOrdersRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to get order");
             throw;
         }
     }
@@ -85,7 +94,7 @@ public class OrderRepository : IOrdersRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to get orders");
             throw;
         }
     }
@@ -98,7 +107,7 @@ public class OrderRepository : IOrdersRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to save changes");
             throw;
         }
     }

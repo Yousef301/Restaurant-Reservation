@@ -9,6 +9,7 @@ public interface ICustomersRepository
     public Task<bool> DeleteCustomerAsync(Customer customer);
     public Task<Customer?> GetCustomerAsync(int customerId);
     public Task<List<Customer>> GetCustomersByPartySizeAsync(int partySize);
+    public Task<Customer?> GetCustomerByEmailAsync(string email);
     public Task<IEnumerable<Customer?>> GetCustomersAsync();
     public Task SaveChangesAsync();
 }

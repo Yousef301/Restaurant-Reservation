@@ -2,6 +2,7 @@
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Enums;
 using RestaurantReservation.Db.Repositories.Interfaces;
+using Serilog;
 
 namespace RestaurantReservation.Db.Repositories;
 
@@ -24,7 +25,7 @@ public class EmployeesRepository : IEmployeesRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error occurred while adding employee");
             throw;
         }
     }
@@ -45,7 +46,7 @@ public class EmployeesRepository : IEmployeesRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error occurred while updating employee");
             throw;
         }
     }
@@ -66,7 +67,7 @@ public class EmployeesRepository : IEmployeesRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error occurred while deleting employee");
             throw;
         }
     }
@@ -79,7 +80,7 @@ public class EmployeesRepository : IEmployeesRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error occurred while getting employee");
             throw;
         }
     }
@@ -92,7 +93,7 @@ public class EmployeesRepository : IEmployeesRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error occurred while listing managers");
             throw;
         }
     }
@@ -105,7 +106,7 @@ public class EmployeesRepository : IEmployeesRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error occurred while getting employees");
             throw;
         }
     }
@@ -121,7 +122,7 @@ public class EmployeesRepository : IEmployeesRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error occurred while calculating average order amount");
             throw;
         }
     }
@@ -136,7 +137,7 @@ public class EmployeesRepository : IEmployeesRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error occurred while getting managers");
             throw;
         }
     }
@@ -149,7 +150,7 @@ public class EmployeesRepository : IEmployeesRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Error occurred while saving changes");
             throw;
         }
     }

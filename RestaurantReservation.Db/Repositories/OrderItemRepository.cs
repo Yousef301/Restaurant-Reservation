@@ -1,4 +1,5 @@
 ﻿using RestaurantReservation.Db.Entities;
+using Serilog;
 
 namespace RestaurantReservation.Db.Repositories;
 
@@ -11,41 +12,73 @@ public class OrderItemRepository
         _context = context;
     }
 
-    public async Task<string> AddOrderItemAsync(OrderItem orderItem)
+    public async Task<OrderItem> AddOrderItemAsync(OrderItem orderItem)
     {
-        await _context.OrderItems.AddAsync(orderItem);
-        await _context.SaveChangesAsync();
-        return "Order item added successfully.";
+        try
+        {
+            await _context.OrderItems.AddAsync(orderItem);
+            await _context.SaveChangesAsync();
+            return orderItem;
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Failed to add order item");
+            throw;
+        }
     }
 
-    public async Task<string> UpdateOrderItemAsync(OrderItem orderItem)
+    public async Task<bool> UpdateOrderItemAsync(OrderItem orderItem)
     {
-        var existingOrderItem = await _context.OrderItems.FindAsync(orderItem.OrderItemID);
-        if (existingOrderItem == null)
+        try
         {
-            return "Order item not found.";
-        }
+            var existingOrderItem = await _context.OrderItems.FindAsync(orderItem.OrderItemID);
+            if (existingOrderItem == null)
+            {
+                return false;
+            }
 
-        _context.Entry(existingOrderItem).CurrentValues.SetValues(orderItem);
-        await _context.SaveChangesAsync();
-        return "Order item updated successfully.";
+            _context.Entry(existingOrderItem).CurrentValues.SetValues(orderItem);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Failed to update order item");
+            throw;
+        }
     }
 
-    public async Task<string> DeleteOrderItemAsync(int orderItemId)
+    public async Task<bool> DeleteOrderItemAsync(int orderItemId)
     {
-        var existingOrderItem = await _context.OrderItems.FindAsync(orderItemId);
-        if (existingOrderItem == null)
+        try
         {
-            return "Order item not found.";
-        }
+            var existingOrderItem = await _context.OrderItems.FindAsync(orderItemId);
+            if (existingOrderItem == null)
+            {
+                return false;
+            }
 
-        _context.OrderItems.Remove(existingOrderItem);
-        await _context.SaveChangesAsync();
-        return "Order item deleted successfully.";
+            _context.OrderItems.Remove(existingOrderItem);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     public async Task<OrderItem?> GetOrderItemAsync(int orderItemId)
     {
-        return await _context.OrderItems.FindAsync(orderItemId);
+        try
+        {
+            return await _context.OrderItems.FindAsync(orderItemId);
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Failed to get order item");
+            throw;
+        }
     }
 }
